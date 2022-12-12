@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
         <script src="https://cdn.tailwindcss.com"></script>
+        <script src="//unpkg.com/alpinejs" defer></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet"> 
@@ -13,60 +14,117 @@
     </head>
 
 
-    <body class="w-11/12 mx-auto main-font">
-        <nav>
-            <div class="flex justify-between items-center my-4">
-                <img src="/assets/images/logo.svg" alt="">
-                <img src="/assets/images/icon-menu.svg" alt="" class="h-4">
+    <body x-data="{ open: false }" class="w-[370px] lg:w-[1000px] mx-auto main-font">
+        <nav class="relative">
+            <div class="flex justify-between items-center my-5 lg:my-10">
+                <img src="/assets/images/logo.svg" alt="" class="h-8">
+                <div x-on:click="open = ! open" class="lg:hidden">
+                    <img src="/assets/images/icon-menu.svg" alt="" class="h-4">
+                </div>
+                <div class="hidden lg:flex">
+                    <p class="text-sm text-gray-600 px-2 hover:text-orange-500 cursor-pointer">Home</p>
+                    <p class="text-sm text-gray-600 px-2 hover:text-orange-500 cursor-pointer">New</p>
+                    <p class="text-sm text-gray-600 px-2 hover:text-orange-500 cursor-pointer">Popular</p>
+                    <p class="text-sm text-gray-600 px-2 hover:text-orange-500 cursor-pointer">Trending</p>
+                    <p class="text-sm text-gray-600 px-2 hover:text-orange-500 cursor-pointer">Categories</p>
+                </div>
             </div>
 
+            <div x-show="open" class="fixed inset-0 bg-gray-600 bg-opacity-75"></div>
 
+            <div x-show="open" class="flex justify-between items-center bg-white my-5 h-full absolute top-0 right-0 lg:my-10 z-40">
+                <div>
+                    <button x-on:click="open = ! open" type="button" class="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                        <span class="sr-only">Close sidebar</span>
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            
+                <div class="flex-1 overflow-y-auto pt-5 pb-4">
+                    <div class="mt-5 space-y-1 px-2">
+                        <a href="#" class="bg-gray-900 text-white group flex items-center px-2 py-2 text-base font-medium rounded-md">
+                            Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
         </nav>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="border border-red-500 col-span-1 md:col-span-2">
-                <img src="/assets/images/image-web-3-desktop.jpg" alt="" class="hidden md:block">
-                <img src="/assets/images/image-web-3-mobile.jpg" alt="" class="block md:hidden">
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class=" col-span-1 lg:col-span-2">
+                <img src="/assets/images/image-web-3-desktop.jpg" alt="" class="hidden lg:block">
+                <img src="/assets/images/image-web-3-mobile.jpg" alt="" class="block lg:hidden">
             </div>
-            <div class="border border-red-500">
-                <p class="text-4xl font-bold">The Bright Future of Web 3.0?</p>
+            <div class="lg:hidden">
+                <p class="text-5xl font-black">The Bright Future of Web 3.0?</p>
             </div>
-            <div class="border border-red-500">
-                <p>We dive into the next evolution of the web that claims to put the power of the platforms back into the hands of the people. But is it really fulfilling its promise?</p>
+            <div class="lg:hidden">
+                <p class="text-gray-500">We dive into the next evolution of the web that claims to put the power of the platforms back into the hands of the people. But is it really fulfilling its promise?</p>
+                <button class="bg-[#F0604F] text-white tracking-widest py-1.5 px-6 mt-3 mb-6 hover:bg-[#00011A]">
+                    READ MORE
+                </button>
             </div>
-            <div class="border border-red-500 row-span-2">
+            <div class="bg-[#00011A] row-span-2 p-6">
                 <div> 
-                    <p>New</p>
+                    <p class="text-[#DFA563] text-4xl font-bold pb-6">New</p>
                 </div>
                 <div>
-                    <p>Hydrogen VS Electric Cars</p>
-                    <p>Will hydrogen-fueled cars ever catch up to EVs?</p>
+                    <p class="text-white font-bold hover:text-[#DFA563] cursor-pointer">Hydrogen VS Electric Cars</p>
+                    <p class="text-gray-400 text-sm pt-2">Will hydrogen-fueled cars ever catch up to EVs?</p>
                 </div>
+                <hr class="text-gray-500 my-6">
                 <div>
-                    <p>The Downsides of AI Artistry</p>
-                    <p>What are the possible adverse effects of on-demand AI image generation?</p>
+                    <p class="text-white font-bold hover:text-[#DFA563] cursor-pointer">The Downsides of AI Artistry</p>
+                    <p class="text-gray-400 text-sm pt-2">What are the possible adverse effects of on-demand AI image generation?</p>
                 </div>
+                <hr class="text-gray-500 my-6">
                 <div>
-                    <p>Is VC Funding Drying Up?</p>
-                    <p>Private funding by VC firms is down 50% YOY. We take a look at what that means.</p>
+                    <p class="text-white font-bold hover:text-[#DFA563] cursor-pointer">Is VC Funding Drying Up?</p>
+                    <p class="text-gray-400 text-sm pt-2">Private funding by VC firms is down 50% YOY. We take a look at what that means.</p>
                 </div>
             </div>
-            <div class="border border-red-500">
-                <p>01</p>
-                <p>Reviving Retro PCs</p>
-                <p>What happens when old PCs are given modern upgrades?</p>
+            <div class="hidden lg:block">
+                <p class="text-5xl font-black">The Bright Future of Web 3.0?</p>
             </div>
-            <div class="border border-red-500">
-                <p>02</p>
-                <p>Top 10 Laptops of 2022</p>
-                <p>Our best picks for various needs and budgets.</p>
+            <div class="hidden lg:block">
+                <p class="text-gray-500 text-sm">We dive into the next evolution of the web that claims to put the power of the platforms back into the hands of the people. But is it really fulfilling its promise?</p>
+                <button class="bg-[#F0604F] text-white tracking-widest py-1.5 px-6 mt-6 hover:bg-[#00011A]">
+                    READ MORE
+                </button>
             </div>
-            <div class="border border-red-500">
-                <p>03</p>
-                <p>The Growth of Gaming</p>
-                <p>How the pandemic has sparked fresh opportunities.</p>
+            <div class="flex items-center mb-12 lg:mt-6">
+                <div class="w-[150px]">
+                    <img src="/assets/images/image-retro-pcs.jpg" alt="" class="shrink-0">
+                </div>
+                <div class="pl-4 pr-2">
+                    <p class="text-2xl font-bold text-gray-300">01</p>
+                    <p class="font-bold hover:text-orange-500 cursor-pointer">Reviving Retro PCs</p>
+                    <p class="text-sm">What happens when old PCs are given modern upgrades?</p>
+                </div>
+            </div>
+            <div class="flex items-center mb-12 lg:mt-6">
+                <div class="w-[119px]">
+                    <img src="/assets/images/image-top-laptops.jpg" alt="" class="shrink-0">
+                </div>
+                <div class="pl-4 pr-2">
+                    <p class="text-2xl font-bold text-gray-300">02</p>
+                    <p class="font-bold hover:text-orange-500 cursor-pointer">Top 10 Laptops of 2022</p>
+                    <p class="text-sm">Our best picks for various needs and budgets.</p>
+                </div>
+            </div>
+            <div class="flex items-center mb-12 lg:mt-6">
+                <div class="w-[135px]">
+                    <img src="/assets/images/image-gaming-growth.jpg" alt="" class="shrink-0">
+                </div>
+                <div class="pl-4 pr-2">
+                    <p class="text-2xl font-bold text-gray-300">03</p>
+                    <p class="font-bold hover:text-orange-500 cursor-pointer">The Growth of Gaming</p>
+                    <p class="text-sm">How the pandemic has sparked fresh opportunities.</p>
+                </div>
             </div>
         </div>
-    
     </body>
 </html>
